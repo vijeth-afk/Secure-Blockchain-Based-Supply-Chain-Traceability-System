@@ -1,0 +1,511 @@
+/* ========================================
+   Login Page - CyberTech Futuristic Theme
+   ======================================== */
+
+.login-page {
+    min-height: 100vh;
+    background: var(--color-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg) var(--spacing-md);
+}
+
+/* ========================================
+   Animated Background Elements
+   ======================================== */
+
+/* Animated Grid Background */
+.login-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+    animation: grid-move 20s linear infinite;
+}
+
+/* Pulsing Glow Effect */
+.login-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulse-glow 8s ease-in-out infinite;
+}
+
+/* ========================================
+   Container
+   ======================================== */
+
+.login-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+    animation: fade-in 0.6s ease-out;
+}
+
+/* ========================================
+   Login Card
+   ======================================== */
+
+.login-card {
+    background: var(--color-card-bg) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-card) !important;
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.login-card:hover {
+    box-shadow: var(--shadow-neon-cyan) !important;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   Card Header
+   ======================================== */
+
+.login-card-header {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(51, 255, 153, 0.1)) !important;
+    border-bottom: 2px solid var(--color-border) !important;
+    padding: var(--spacing-xl) var(--spacing-lg) !important;
+    position: relative;
+}
+
+.login-card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-green));
+}
+
+.login-card-header .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-accent-cyan);
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+}
+
+.login-card-header h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: var(--spacing-sm) 0;
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+}
+
+.login-card-header .subcopy {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-top: var(--spacing-sm);
+    margin-bottom: 0;
+}
+
+/* ========================================
+   Tabs Navigation
+   ======================================== */
+
+.login-tabs {
+    border-bottom: 2px solid var(--color-border) !important;
+    margin-bottom: var(--spacing-lg) !important;
+}
+
+.login-tabs .nav-link {
+    color: var(--color-text-secondary) !important;
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+    padding: var(--spacing-md) var(--spacing-lg) !important;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+    background: transparent !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+}
+
+.login-tabs .nav-link:hover {
+    color: var(--color-accent-cyan) !important;
+    border-bottom-color: rgba(0, 229, 255, 0.3) !important;
+    background: rgba(0, 229, 255, 0.03) !important;
+}
+
+.login-tabs .nav-link.active {
+    color: var(--color-accent-cyan) !important;
+    background: rgba(0, 229, 255, 0.05) !important;
+    border-bottom-color: var(--color-accent-cyan) !important;
+}
+
+/* ========================================
+   Form Styling
+   ======================================== */
+
+.login-form {
+    padding: var(--spacing-md) 0;
+}
+
+.login-form .form-label {
+    color: var(--color-text-primary) !important;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.login-form .form-control,
+.login-form .form-select {
+    background: rgba(17, 24, 39, 0.6) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--color-text-primary) !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem;
+    transition: all var(--transition-normal);
+}
+
+.login-form .form-control:focus,
+.login-form .form-select:focus {
+    background: rgba(17, 24, 39, 0.8) !important;
+    border-color: var(--color-accent-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1) !important;
+    color: var(--color-text-primary) !important;
+    outline: none;
+}
+
+.login-form .form-control::placeholder {
+    color: var(--color-text-muted);
+}
+
+.login-form .form-select option {
+    background: var(--color-card-bg);
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Login Buttons
+   ======================================== */
+
+.login-btn {
+    padding: 0.875rem 1.75rem !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
+}
+
+.login-btn:hover::before {
+    left: 100%;
+}
+
+.login-btn.primary {
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green)) !important;
+    color: var(--color-primary) !important;
+}
+
+.login-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon-cyan) !important;
+}
+
+.login-btn.success {
+    background: linear-gradient(135deg, var(--color-accent-green), #10B981) !important;
+    color: var(--color-primary) !important;
+}
+
+.login-btn.success:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon-green) !important;
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   Alerts
+   ======================================== */
+
+.login-alert {
+    border-radius: var(--radius-md) !important;
+    padding: var(--spacing-md) !important;
+    margin-bottom: var(--spacing-md) !important;
+    border: 1px solid !important;
+    animation: fade-in 0.3s ease-out;
+    font-size: 0.95rem;
+}
+
+.login-alert.alert-success {
+    background: rgba(51, 255, 153, 0.1) !important;
+    border-color: var(--color-accent-green) !important;
+    color: var(--color-accent-green) !important;
+}
+
+.login-alert.alert-danger {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: #EF4444 !important;
+    color: #EF4444 !important;
+}
+
+.login-alert.inline {
+    margin-top: 0 !important;
+}
+
+.login-alert .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+}
+
+.login-alert .btn-close:hover {
+    opacity: 1;
+}
+
+/* ========================================
+   Current Account Display
+   ======================================== */
+
+.current-account {
+    padding: var(--spacing-md);
+    background: rgba(0, 229, 255, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-lg);
+    transition: all var(--transition-normal);
+}
+
+.current-account:hover {
+    background: rgba(0, 229, 255, 0.08);
+    border-color: var(--color-border-hover);
+}
+
+.current-account p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.current-account strong {
+    color: var(--color-accent-cyan);
+    font-weight: 700;
+}
+
+/* ========================================
+   Assign Roles Card
+   ======================================== */
+
+.assign-card {
+    padding: var(--spacing-md) 0;
+}
+
+/* ========================================
+   Form Groups
+   ======================================== */
+
+.login-form .mb-3 {
+    margin-bottom: var(--spacing-md) !important;
+}
+
+.login-form .d-grid {
+    margin-top: var(--spacing-lg);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .login-card-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .login-card-header .eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+    }
+
+    .login-card-header .subcopy {
+        font-size: 0.875rem;
+    }
+
+    .login-tabs .nav-link {
+        padding: var(--spacing-sm) var(--spacing-md) !important;
+        font-size: 0.9rem;
+    }
+
+    .login-btn {
+        font-size: 0.9rem !important;
+        padding: 0.75rem 1.5rem !important;
+    }
+
+    .login-glow {
+        width: 600px;
+        height: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card-header {
+        padding: var(--spacing-lg) var(--spacing-md) !important;
+    }
+
+    .login-card-header h3 {
+        font-size: 1.25rem;
+    }
+
+    .login-card-header .eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .login-card-header .subcopy {
+        font-size: 0.8rem;
+    }
+
+    .login-tabs .nav-link {
+        padding: var(--spacing-xs) var(--spacing-sm) !important;
+        font-size: 0.85rem;
+    }
+
+    .login-form .form-control,
+    .login-form .form-select {
+        font-size: 0.9rem;
+    }
+
+    .login-btn {
+        font-size: 0.85rem !important;
+        padding: 0.7rem 1.25rem !important;
+    }
+
+    .login-glow {
+        width: 400px;
+        height: 400px;
+    }
+
+    .current-account {
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   Additional Enhancements
+   ======================================== */
+
+/* Smooth transitions for all interactive elements */
+.login-page * {
+    transition-property: background-color, border-color, color, transform, box-shadow;
+    transition-duration: var(--transition-normal);
+}
+
+/* Focus visible for accessibility */
+.login-form .form-control:focus-visible,
+.login-form .form-select:focus-visible,
+.login-btn:focus-visible {
+    outline: 2px solid var(--color-accent-cyan);
+    outline-offset: 2px;
+}
+
+/* Loading state for buttons */
+.login-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+    position: relative;
+}
+
+.login-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: button-spin 0.6s linear infinite;
+}
+
+@keyframes button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Card body padding */
+.login-card .card-body {
+    padding: var(--spacing-lg) !important;
+}
+
+/* Enhance tab transitions */
+.login-tabs .tab-content {
+    animation: fade-in 0.4s ease-out;
+}
+
+/* Form validation states */
+.login-form .form-control.is-invalid,
+.login-form .form-select.is-invalid {
+    border-color: #EF4444 !important;
+}
+
+.login-form .form-control.is-valid,
+.login-form .form-select.is-valid {
+    border-color: var(--color-accent-green) !important;
+}
+
+/* Placeholder animation */
+.login-form .form-control:focus::placeholder {
+    opacity: 0.5;
+    transform: translateX(5px);
+    transition: all var(--transition-normal);
+}

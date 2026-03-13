@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Anomaly Detection Test Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .test-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .test-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .test-card .expected {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-normal {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-normal:hover {
+            background: #45a049;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e68900;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #da190b;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .results h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .log-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .log-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .log-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .log-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons button {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Anomaly Detection Test Suite</h1>
+            <p>Test the anomaly detection system with various scenarios</p>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="runAllTests()">🚀 Run All Tests</button>
+            <button class="btn-primary" onclick="checkAlerts()">📊 Check Alerts</button>
+            <button class="btn-primary" onclick="getStats()">📈 Get Statistics</button>
+            <button class="btn-danger" onclick="clearLogs()">🗑️ Clear Logs</button>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>📦 Test 1: Normal Entry</h3>
+                <p>Creates a normal manufacturing entry with typical values</p>
+                <div class="expected">Expected: ✅ No anomaly</div>
+                <button class="btn-normal" onclick="testNormalEntry()">Run Test</button>
+            </div>
+
+            <div class="test-card">
+                <h3>⚠️ Test 2: High Quantity</h3>
+                <p>Creates entry with extremely high quantity (50,000 units)</p>
+                <div class="expected">Expected: 🚨 CRITICAL anomaly</div>
+                <button class="btn-danger" onclick="testHighQuantity()">Run Test</button>
+            </div>
+
+            <div class="test-card">
+                <h3>⚠️ Test 3: High Price</h3>
+                <p>Creates entry with unusually high price ($15,000/unit)</p>
+                <div class="expected">Expected: 🚨 HIGH/CRITICAL anomaly</div>
+                <button class="btn-danger" onclick="testHighPrice()">Run Test</button>
+            </div>
+
+            <div class="test-card">
+                <h3>🚨 Test 4: Combined Anomaly</h3>
+                <p>High quantity + High price combination</p>
+                <div class="expected">Expected: 🚨🚨 CRITICAL anomaly</div>
+                <button class="btn-danger" onclick="testCombinedAnomaly()">Run Test</button>
+            </div>
+
+            <div class="test-card">
+                <h3>📦 Test 5: Multiple Normal</h3>
+                <p>Creates 3 normal entries in sequence</p>
+                <div class="expected">Expected: ✅ No anomalies</div>
+                <button class="btn-normal" onclick="testMultipleNormal()">Run Test</button>
+            </div>
+
+            <div class="test-card">
+                <h3>⚠️ Test 6: Medium Anomaly</h3>
+                <p>Creates entry with moderately unusual values</p>
+                <div class="expected">Expected: ⚠️ MEDIUM anomaly</div>
+                <button class="btn-warning" onclick="testMediumAnomaly()">Run Test</button>
+            </div>
+        </div>
+
+        <div class="results">
+            <h2>📋 Test Results</h2>
+            <div id="logs"></div>
+        </div>
+
+        <div class="results">
+            <h2>📊 Anomaly Statistics</h2>
+            <div id="stats" class="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:5002';
+        let token = localStorage.getItem('token');
+
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logsDiv.insertBefore(entry, logsDiv.firstChild);
+        }
+
+        function clearLogs() {
+            document.getElementById('logs').innerHTML = '';
+            log('Logs cleared', 'info');
+        }
+
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+
+            if (body) {
+                options.body = JSON.stringify(body);
+            }
+
+            const response = await fetch(`${BASE_URL}${endpoint}`, options);
+            return await response.json();
+        }
+
+        async function testNormalEntry() {
+            log('Running Test 1: Normal Entry...', 'info');
+            try {
+                const data = await apiCall('/api/manufacturing', 'POST', {
+                    productName: 'Normal Product A',
+                    quantity: 100,
+                    pricePerUnit: 50,
+                    productionDate: new Date().toISOString(),
+                    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                    batchNumber: `BATCH-${Date.now()}`,
+                    rawMaterialId: '6cf8a32b70f6cf271f'
+                });
+                log(`✅ Normal entry created: ${data.productName} (Qty: ${data.quantity})`, 'success');
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testHighQuantity() {
+            log('Running Test 2: High Quantity Anomaly...', 'warning');
+            try {
+                const data = await apiCall('/api/manufacturing', 'POST', {
+                    productName: 'Suspicious High Quantity Product',
+                    quantity: 50000,
+                    pricePerUnit: 45,
+                    productionDate: new Date().toISOString(),
+                    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                    batchNumber: `BATCH-${Date.now()}`,
+                    rawMaterialId: '6cf8a32b70f6cf271f'
+                });
+                log(`🚨 High quantity entry created: ${data.productName} (Qty: ${data.quantity})`, 'warning');
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testHighPrice() {
+            log('Running Test 3: High Price Anomaly...', 'warning');
+            try {
+                const data = await apiCall('/api/manufacturing', 'POST', {
+                    productName: 'Overpriced Product',
+                    quantity: 150,
+                    pricePerUnit: 15000,
+                    productionDate: new Date().toISOString(),
+                    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                    batchNumber: `BATCH-${Date.now()}`,
+                    rawMaterialId: '6cf8a32b70f6cf271f'
+                });
+                log(`🚨 High price entry created: ${data.productName} (Price: $${data.pricePerUnit})`, 'warning');
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testCombinedAnomaly() {
+            log('Running Test 4: Combined Anomaly...', 'warning');
+            try {
+                const data = await apiCall('/api/manufacturing', 'POST', {
+                    productName: 'Highly Suspicious Product',
+                    quantity: 25000,
+                    pricePerUnit: 12000,
+                    productionDate: new Date().toISOString(),
+                    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                    batchNumber: `BATCH-${Date.now()}`,
+                    rawMaterialId: '6cf8a32b70f6cf271f'
+                });
+                log(`🚨🚨 Combined anomaly created: ${data.productName} (Qty: ${data.quantity}, Price: $${data.pricePerUnit})`, 'warning');
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testMultipleNormal() {
+            log('Running Test 5: Multiple Normal Entries...', 'info');
+            for (let i = 1; i <= 3; i++) {
+                try {
+                    const data = await apiCall('/api/manufacturing', 'POST', {
+                        productName: `Normal Product ${String.fromCharCode(65 + i)}`,
+                        quantity: 80 + (i * 10),
+                        pricePerUnit: 45 + (i * 5),
+                        productionDate: new Date().toISOString(),
+                        expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                        batchNumber: `BATCH-${Date.now()}-${i}`,
+                        rawMaterialId: '6cf8a32b70f6cf271f'
+                    });
+                    log(`✅ Normal entry ${i} created: ${data.productName}`, 'success');
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                } catch (error) {
+                    log(`❌ Error in entry ${i}: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        async function testMediumAnomaly() {
+            log('Running Test 6: Medium Anomaly...', 'warning');
+            try {
+                const data = await apiCall('/api/manufacturing', 'POST', {
+                    productName: 'Moderately Unusual Product',
+                    quantity: 5000,
+                    pricePerUnit: 500,
+                    productionDate: new Date().toISOString(),
+                    expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+                    batchNumber: `BATCH-${Date.now()}`,
+                    rawMaterialId: '6cf8a32b70f6cf271f'
+                });
+                log(`⚠️ Medium anomaly entry created: ${data.productName}`, 'warning');
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function runAllTests() {
+            log('🚀 Running all tests...', 'info');
+            await testNormalEntry();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testHighQuantity();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testHighPrice();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testCombinedAnomaly();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testMediumAnomaly();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testMultipleNormal();
+
+            log('⏳ Waiting for anomaly detection to process...', 'info');
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            await checkAlerts();
+            await getStats();
+            log('✅ All tests completed!', 'success');
+        }
+
+        async function checkAlerts() {
+            log('📊 Fetching anomaly alerts...', 'info');
+            try {
+                const data = await apiCall('/api/anomalies?limit=10');
+                log(`Found ${data.total} total alerts`, 'info');
+
+                if (data.alerts && data.alerts.length > 0) {
+                    data.alerts.forEach((alert, index) => {
+                        const severity = alert.severity.toUpperCase();
+                        const type = alert.status === 'new' ? 'warning' : 'info';
+                        log(`Alert ${index + 1}: [${severity}] ${alert.anomalyType} - Score: ${(alert.anomalyScore * 100).toFixed(1)}% - ${alert.description}`, type);
+                    });
+                } else {
+                    log('No alerts found yet. They may take a moment to process.', 'info');
+                }
+            } catch (error) {
+                log(`❌ Error fetching alerts: ${error.message}`, 'error');
+            }
+        }
+
+        async function getStats() {
+            log('📈 Fetching statistics...', 'info');
+            try {
+                const data = await apiCall('/api/anomalies/stats/summary?days=1');
+                const statsDiv = document.getElementById('stats');
+                statsDiv.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.total || 0}</div>
+                        <div class="stat-label">Total Alerts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.critical || 0}</div>
+                        <div class="stat-label">Critical</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.high || 0}</div>
+                        <div class="stat-label">High</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.medium || 0}</div>
+                        <div class="stat-label">Medium</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.low || 0}</div>
+                        <div class="stat-label">Low</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.summary.new || 0}</div>
+                        <div class="stat-label">New</div>
+                    </div>
+                `;
+                log('✅ Statistics updated', 'success');
+            } catch (error) {
+                log(`❌ Error fetching stats: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize
+        if (!token) {
+            log('⚠️ No authentication token found. Please login first.', 'warning');
+        } else {
+            log('✅ Ready to run tests', 'success');
+        }
+    </script>
+</body>
+
+</html>

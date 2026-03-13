@@ -1,0 +1,606 @@
+/* ========================================
+   Manufacturing Inventory - CyberTech Theme
+   ======================================== */
+
+.manufacturing-page {
+    min-height: 100vh;
+    background: var(--color-primary);
+    position: relative;
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+/* Animated Grid Background */
+.mfg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+    animation: grid-move 20s linear infinite;
+}
+
+/* Pulsing Glow Effect */
+.mfg-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulse-glow 8s ease-in-out infinite;
+}
+
+/* Content Container */
+.manufacturing-content {
+    position: relative;
+    z-index: 1;
+    animation: fade-in 0.6s ease-out;
+}
+
+/* Header Section */
+.mfg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--spacing-lg);
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.mfg-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-green));
+}
+
+.mfg-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: var(--spacing-sm) 0;
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mfg-header .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-accent-cyan);
+    margin-bottom: var(--spacing-xs);
+}
+
+.mfg-header .subcopy {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-bottom: 0;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-md);
+}
+
+/* Status Chip */
+.status-chip {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(51, 255, 153, 0.1));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: center;
+    min-width: 150px;
+}
+
+.status-chip span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+}
+
+.status-chip p {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Neon Card */
+.neon-card {
+    background: var(--color-card-bg) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-card) !important;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.neon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-green));
+}
+
+.neon-card:hover {
+    border-color: var(--color-border-hover) !important;
+    box-shadow: var(--shadow-neon-cyan) !important;
+}
+
+.neon-card .card-body {
+    padding: var(--spacing-lg) !important;
+}
+
+/* Card Title Row */
+.card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.card-title-row h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-accent-cyan);
+    margin: 0;
+}
+
+/* Badge Styling */
+.badge.beta {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--color-accent-cyan);
+    border: 1px solid var(--color-accent-cyan);
+    animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Form Styling */
+.neon-card .form-label {
+    color: var(--color-text-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.neon-card .form-control {
+    padding: 0.75rem 1rem !important;
+    background: rgba(17, 24, 39, 0.6) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--color-text-primary) !important;
+    font-size: 1rem !important;
+    transition: all var(--transition-normal) !important;
+}
+
+.neon-card .form-control:focus {
+    outline: none !important;
+    border-color: var(--color-accent-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1) !important;
+    background: rgba(17, 24, 39, 0.8) !important;
+}
+
+.neon-card .form-control::placeholder {
+    color: var(--color-text-muted) !important;
+}
+
+/* Buttons */
+.mfg-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mfg-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
+}
+
+.mfg-btn:hover::before {
+    left: 100%;
+}
+
+.mfg-btn:hover {
+    transform: translateY(-2px);
+}
+
+.mfg-btn:active {
+    transform: translateY(0);
+}
+
+/* Button Variants */
+.mfg-btn.primary {
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green));
+    color: var(--color-primary);
+}
+
+.mfg-btn.primary:hover {
+    box-shadow: var(--shadow-neon-cyan);
+}
+
+.mfg-btn.success {
+    background: linear-gradient(135deg, var(--color-accent-green), #10B981);
+    color: var(--color-primary);
+}
+
+.mfg-btn.success:hover {
+    box-shadow: var(--shadow-neon-green);
+}
+
+.mfg-btn.info {
+    background: linear-gradient(135deg, #3B82F6, #2563EB);
+    color: white;
+}
+
+.mfg-btn.info:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.mfg-btn.back-home {
+    background: transparent;
+    border: 2px solid var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.95rem;
+}
+
+.mfg-btn.back-home:hover {
+    background: var(--color-accent-cyan);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-neon-cyan);
+}
+
+/* Table Wrapper */
+.table-wrapper {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+    position: relative;
+}
+
+.table-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-green));
+}
+
+.table-wrapper:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-neon-cyan);
+}
+
+/* Neon Table */
+.neon-table {
+    margin-bottom: 0 !important;
+    color: var(--color-text-secondary) !important;
+}
+
+.neon-table thead {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(51, 255, 153, 0.1)) !important;
+}
+
+.neon-table th {
+    padding: var(--spacing-md) !important;
+    color: var(--color-accent-cyan) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-size: 0.875rem !important;
+    border-color: var(--color-border) !important;
+    border-bottom-width: 2px !important;
+}
+
+.neon-table td {
+    padding: var(--spacing-md) !important;
+    color: var(--color-text-secondary) !important;
+    border-color: var(--color-border) !important;
+    vertical-align: middle !important;
+}
+
+.neon-table tbody tr {
+    transition: all var(--transition-fast);
+    background: transparent !important;
+}
+
+.neon-table tbody tr:hover {
+    background: rgba(0, 229, 255, 0.05) !important;
+}
+
+.neon-table tbody tr:nth-of-type(odd) {
+    background: rgba(17, 24, 39, 0.3) !important;
+}
+
+.neon-table tbody tr:nth-of-type(odd):hover {
+    background: rgba(0, 229, 255, 0.05) !important;
+}
+
+/* Status Pills */
+.status-pill {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.status-pill.in-production {
+    background: rgba(255, 193, 7, 0.15);
+    color: #FFC107;
+    border: 1px solid #FFC107;
+}
+
+.status-pill.completed {
+    background: rgba(51, 255, 153, 0.15);
+    color: var(--color-accent-green);
+    border: 1px solid var(--color-accent-green);
+}
+
+.status-pill.shipped {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--color-accent-cyan);
+    border: 1px solid var(--color-accent-cyan);
+}
+
+.status-pill.pending {
+    background: rgba(107, 114, 128, 0.15);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-text-muted);
+}
+
+/* Loading State */
+.loading-state {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: var(--color-accent-cyan);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Error State */
+.error-state {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: #EF4444;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .mfg-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .status-chip {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .manufacturing-page {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .mfg-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .neon-table {
+        font-size: 0.875rem;
+    }
+
+    .neon-table th,
+    .neon-table td {
+        padding: var(--spacing-sm) !important;
+    }
+
+    .mfg-btn {
+        font-size: 0.875rem;
+        padding: 0.625rem 1.25rem;
+    }
+
+    .status-chip span {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mfg-header {
+        padding: var(--spacing-md);
+    }
+
+    .mfg-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mfg-btn.back-home {
+        width: 100%;
+    }
+
+    .neon-card .card-body {
+        padding: var(--spacing-md) !important;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .neon-table {
+        min-width: 600px;
+    }
+}
+
+/* ========================================
+   Modal - Distribute to Distributor Styles
+   Overrides for React-Bootstrap Modal to match theme
+   ======================================== */
+.modal-content {
+    background: var(--color-card-bg) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-primary) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-card) !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--color-border) !important;
+    background: transparent !important;
+    padding: calc(var(--spacing-md) - 4px) calc(var(--spacing-lg) - 4px) !important;
+}
+
+.modal-title {
+    color: var(--Color-accent-cyan);
+    color: var(--color-accent-cyan) !important;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.modal-body {
+    padding: var(--spacing-lg) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--color-border) !important;
+    background: transparent !important;
+    padding: var(--spacing-md) !important;
+}
+
+/* Form controls inside modal */
+.modal .form-control,
+.modal select.form-control,
+.modal .form-select {
+    background: rgba(17, 24, 39, 0.6) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.modal .form-control:focus,
+.modal .form-select:focus {
+    border-color: var(--color-accent-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.08) !important;
+    background: rgba(17, 24, 39, 0.8) !important;
+}
+
+.modal select option {
+    background: var(--color-card-bg) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.modal .mfg-btn.primary {
+    background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green)) !important;
+    color: var(--color-primary) !important;
+}
+
+.modal .mfg-btn.cancel {
+    background: transparent !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-secondary) !important;
+}
+
+.modal .small-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted) !important;
+    margin-top: 0.5rem;
+}
+
+/* Darken backdrop a touch to match neon theme */
+.modal-backdrop.show {
+    background-color: rgba(2, 6, 23, 0.6) !important;
+}

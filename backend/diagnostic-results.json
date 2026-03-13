@@ -1,0 +1,80 @@
+{
+  "total": 6,
+  "passed": 4,
+  "failed": 2,
+  "anomaliesDetected": 2,
+  "testCases": [
+    {
+      "name": "Normal Manufacturing Entry",
+      "anomalyScore": 0.10158186321217183,
+      "severity": "low",
+      "isAnomaly": false,
+      "passed": true,
+      "data": {
+        "quantity": 100,
+        "pricePerUnit": 50,
+        "timeSinceLastUpdate": 2
+      }
+    },
+    {
+      "name": "Extremely High Quantity",
+      "anomalyScore": 0.4793292217300594,
+      "severity": "medium",
+      "isAnomaly": false,
+      "passed": false,
+      "data": {
+        "quantity": 50000,
+        "pricePerUnit": 45,
+        "timeSinceLastUpdate": 2
+      }
+    },
+    {
+      "name": "Unusual Price",
+      "anomalyScore": 0.6909005835624916,
+      "severity": "high",
+      "isAnomaly": true,
+      "passed": true,
+      "data": {
+        "quantity": 150,
+        "pricePerUnit": 15000,
+        "timeSinceLastUpdate": 2
+      }
+    },
+    {
+      "name": "Combined Anomalies",
+      "anomalyScore": 0.7496548428700202,
+      "severity": "high",
+      "isAnomaly": true,
+      "passed": true,
+      "data": {
+        "quantity": 25000,
+        "pricePerUnit": 12000,
+        "timeSinceLastUpdate": 2
+      }
+    },
+    {
+      "name": "Stale Data (Old Timestamp)",
+      "anomalyScore": 0.3519270203421517,
+      "severity": "low",
+      "isAnomaly": false,
+      "passed": false,
+      "data": {
+        "quantity": 100,
+        "pricePerUnit": 50,
+        "timeSinceLastUpdate": 800
+      }
+    },
+    {
+      "name": "Multiple Normal Entries",
+      "anomalyScore": 0.23678043317127992,
+      "severity": "low",
+      "isAnomaly": false,
+      "passed": true,
+      "data": {
+        "quantity": 90,
+        "pricePerUnit": 55,
+        "timeSinceLastUpdate": 1.5
+      }
+    }
+  ]
+}
